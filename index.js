@@ -1,12 +1,43 @@
 import express from "express";
 import logger from "./middlewares/logger.js";
-import links from "./routes/links.js"
+import links from "./routes/links.routes.js"
 import notFoundHandler from "./middlewares/notFound.js";
 import errorHandler from "./middlewares/error.js";
+import pool from "./db.js";
 
 const port = process.env.PORT || 8000;
+const app = express();
 
-const app = express()
+
+
+// Test the DB connection
+// app.get('/dbtest', async (req, res) => {
+//   try {
+//     const result = await pool.query('SELECT NOW()');
+//     res.send(result.rows[0]);
+//   } catch (err) {
+//     console.error(err);
+//     res.status(500).send('Database error');
+//   }
+// });
+
+
+app.get('/dbtest', async (req, res) => {
+  try {
+    const result = await pool.query('SELECT NOW()');
+    res.send(result.rows[0]);
+  } catch (err) {
+    console.error('Database connection error:', err);
+    res.status(500).send({
+      message: 'Database connection failed',
+      error: err.message,
+      stack: err.stack,
+    });
+  }
+});
+
+
+
 
 
 // Middleware to parse JSON bodies

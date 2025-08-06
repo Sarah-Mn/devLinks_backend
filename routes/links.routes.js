@@ -1,5 +1,5 @@
 import express from 'express';
-import {getLinks,getLinkById,createLink} from "../controllers/linksController.js";
+import {getLinks,getLinkById,createLink} from "../controllers/links.controller.js";
 
 
 const router = express.Router()
