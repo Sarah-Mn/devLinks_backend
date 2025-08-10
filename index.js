@@ -1,6 +1,7 @@
 import express from "express";
 import logger from "./middlewares/logger.js";
-import links from "./routes/links.routes.js"
+import links from "./routes/links.routes.js";
+import auth from "./routes/auth.route.js";
 import notFoundHandler from "./middlewares/notFound.js";
 import errorHandler from "./middlewares/error.js";
 import pool from "./db.js";
@@ -46,6 +47,9 @@ app.use(express.urlencoded({ extended: false }));
 
 // Middleware for logging requests
 app.use(logger)
+
+// auth routes
+app.use("/api/auth", auth)
 
 // link routes
 app.use("/api/links",links)
